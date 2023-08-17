@@ -1,3 +1,42 @@
+# MHDDoS  Parallel Script Runner
+
+This script allows you to execute multiple parallel instances of MHDDoS without Gil limitations allowing for increased performance.
+The Parallel script runner also allows using multiple attack method simultaneously. 
+
+## Prerequisites
+
+Before you run the script, make sure you have `parallel` installed:
+
+```
+sudo apt-get install parallel
+```
+## Script Arguments
+
+- `--threads`: Specifies the number of threads to use. Default is `50`.
+  
+- `--requests`: Specifies the number of requests to send. Default is `100`.
+
+- `--seconds`: Specifies the duration in seconds. Default is `100`.
+
+- `--url`: **[Required]** The URL to be used.
+
+- `--parallel-instances`: Specifies the number of parallel instances to run. Default is `4`.
+
+- `--types`: Specifies a comma-delimited list of types for each instance. Default is `HEAD,EVEN,COOKIE,POST`. The allowed types are: `DOWNLOADER, DYN, BOMB, STRESS, XMLRPC, GET, HEAD, AVB, POST, SLOW, BOT, STOMP, CFB, APACHE, BYPASS, GSB, TOR, NULL, DGB, RHEX, OVH, PPS, CFBUAM, EVEN, COOKIE, KILLER`. 
+
+All types should be entered in uppercase. However, the script is designed to be case-insensitive and will automatically convert lowercase types to uppercase. Ensure that the types provided are from the allowed list.
+
+## Running the Script
+
+To run the script, navigate to its directory and use:
+```
+python3 attack.py --url [YOUR_URL] --threads [THREADS] --requests [REQUESTS] --seconds [SECONDS] --parallel-instances [INSTANCES] --types [TYPES]
+```
+
+Replace [YOUR_URL], [THREADS], [REQUESTS], [SECONDS], [INSTANCES], and [TYPES] with your desired values.
+
+## Original Readme
+
 <p align="center"><img src="https://cdn.discordapp.com/attachments/938175699326484490/948263435412598864/unknown_2.png" width="400px" height="150px" alt="ddos"></p>
 
 <h1 align="center">MHDDoS - DDoS Attack Script With 56 Methods</h1>
@@ -148,17 +187,4 @@ pip install -r requirements.txt
 ```shell script
 apt -y update && apt -y install curl wget libcurl4 libssl-dev python3 python3-pip make cmake automake autoconf m4 build-essential git && git clone https://github.com/MatrixTM/MHDDoS.git && cd MH* && pip3 install -r requirements.txt
 ```
-
-[python3]: https://python.org 'Python3'
-[github issues]: https://github.com/MatrixTM/MHDDoS/issues 'enter'
-
----
-
-**💰 Donation Links:**
-#### Donate Links
-
-<b>BTC</b>: <code>bc1q7dhut0fp3sqmz95kth0munte6exzlrne23jtjh</code></br>
-<b>ETH</b>: <code>0xff2fAF77705de1b842fCbA29c95E5C9e7dc266Dc</code></br>
-<b>USDT TRC20</b>: <code>TNeZtxhaYYseJoUS2LWmao6cDbYciprhKz</code></br></br>
-<b>Toman</b>: https://idpay.ir/mh-prodev</br>
 
