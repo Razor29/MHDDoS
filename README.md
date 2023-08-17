@@ -3,13 +3,16 @@
 This script allows you to execute multiple parallel instances of MHDDoS without Gil limitations allowing for increased performance.
 The Parallel script runner also allows using multiple attack method simultaneously. 
 
-## Prerequisites
+## Prerequisites for Parallel Script Runner
 
 Before you run the script, make sure you have `parallel` installed:
 
 ```
 sudo apt-get install parallel
 ```
+
+Don't forget the prerequisites for MHDDoS detailed later on in the README.md file
+
 ## Script Arguments
 
 - `--threads`: Specifies the number of threads to use. Default is `50`.
