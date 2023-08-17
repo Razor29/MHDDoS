@@ -22,12 +22,13 @@ def job(url, threads, requests, seconds, parallel_instances, types):
     for i in range(parallel_instances):
         # Cycle through the types list to repeat types if needed
         type_ = types[i % len(types)]
-        commands.append(f'python3 start.py {type_} {url} 1 {threads} http.txt {requests} {seconds}')
+        commands.append(f'"python3 start.py {type_} {url} 1 {threads} http.txt {requests} {seconds}"')
 
     # Create the full command using `parallel`
     command = f'parallel ::: {" ".join(commands)}'
-    os.system(command)
+    print(f"Executing command: {command}")
 
+    os.system(command)
 
 # Argument parsing
 parser = argparse.ArgumentParser()
