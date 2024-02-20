@@ -30,9 +30,9 @@ The script is executed via the command line with several optional arguments to c
 - `--threads`: The number of threads to use (default: 2).
 - `--requests`: The number of requests to send per thread (default: 100).
 - `--seconds`: The duration in seconds for which the job should run (default: 300).
-- `--url`: The URL to send requests to (default: `https://notreal.notreal.notnet`).
+- `--url`: The URL to send requests to (default: `https://notreal.notnet`).
 - `--instances`: The number of instances to run (default: 2).
-- `--http_file`: Path to the `http.txt` file containing the HTTP proxie list  (default: `http.txt`).
+- `--http`: name of the text file containing the HTTP proxie list  (default: `http.txt`).
 - `--method`: Comma-separated list of HTTP methods to use, matching the number of instances (default: GET, GET). The allowed types are: `DOWNLOADER, DYN, BOMB, STRESS, XMLRPC, GET, HEAD, AVB, POST, SLOW, BOT, STOMP, CFB, APACHE, BYPASS, GSB, TOR, NULL, DGB, RHEX, OVH, PPS, CFBUAM, EVEN, COOKIE, KILLER`.
 - 
 ### Running the Script
