@@ -1,42 +1,77 @@
-# MHDDoS  Parallel Script Runner
+# MHDDoS Parallel Script Runner and Scheduler
 
-This script allows you to execute multiple parallel instances of MHDDoS without Gil limitations allowing for increased performance.
-The Parallel script runner also allows using multiple attack method simultaneously. 
+## Description
 
-## Prerequisites for Parallel Script Runner
+The attack Script is a Python tool designed to expand and enhance MHDDoS but allowing the user to run multiple instaces simultaniously with different attack vectors, or schedule many different concurrent attacks to a specified URL and it adds monitoring outpyt such as  CPU usage, memory usage, upload speed, and packets sent per second. It supports scheduling jobs to run at specific times, executing multiple instances with different configurations, and customizing the number of threads, requests, and duration for each job.
 
-Before you run the script, make sure you have `parallel` installed:
+## Prerequisites
 
-```
-sudo apt-get install parallel
-```
+- Python 3.x
+- `psutil` library
+- `schedule` library
 
-Don't forget the prerequisites for MHDDoS detailed later on in the README.md file
+To install the required Python libraries, run:
 
-## Script Arguments
-
-- `--threads`: Specifies the number of threads to use. Default is `50`.
-  
-- `--requests`: Specifies the number of requests to send. Default is `100`.
-
-- `--seconds`: Specifies the duration in seconds. Default is `100`.
-
-- `--url`: **[Required]** The URL to be used.
-
-- `--parallel-instances`: Specifies the number of parallel instances to run. Default is `4`.
-
-- `--types`: Specifies a comma-delimited list of types for each instance. Default is `HEAD,EVEN,COOKIE,POST`. The allowed types are: `DOWNLOADER, DYN, BOMB, STRESS, XMLRPC, GET, HEAD, AVB, POST, SLOW, BOT, STOMP, CFB, APACHE, BYPASS, GSB, TOR, NULL, DGB, RHEX, OVH, PPS, CFBUAM, EVEN, COOKIE, KILLER`. 
-
-All types should be entered in uppercase. However, the script is designed to be case-insensitive and will automatically convert lowercase types to uppercase. Ensure that the types provided are from the allowed list.
-
-## Running the Script
-
-To run the script, navigate to its directory and use:
-```
-python3 attack.py --url [YOUR_URL] --threads [THREADS] --requests [REQUESTS] --seconds [SECONDS] --parallel-instances [INSTANCES] --types [TYPES]
+```bash
+pip install psutil schedule
 ```
 
-Replace [YOUR_URL], [THREADS], [REQUESTS], [SECONDS], [INSTANCES], and [TYPES] with your desired values.
+## Setup
+
+1. **Download the Script**: Download `attack.py` to your base directory of MHDDoS.
+
+## Usage
+
+The script is executed via the command line with several optional arguments to customize its behavior.
+
+### Arguments
+
+- `time`: Specify `now` to run the job immediately or `schedule` to set up scheduled jobs (default: `schedule`).
+- `--threads`: The number of threads to use (default: 2).
+- `--requests`: The number of requests to send per thread (default: 100).
+- `--seconds`: The duration in seconds for which the job should run (default: 300).
+- `--url`: The URL to send requests to (default: `https://notreal.notreal.notnet`).
+- `--instances`: The number of instances to run (default: 2).
+- `--http_file`: Path to the `http.txt` file containing the HTTP proxie list  (default: `http.txt`).
+- `--method`: Comma-separated list of HTTP methods to use, matching the number of instances (default: GET, GET). The allowed types are: `DOWNLOADER, DYN, BOMB, STRESS, XMLRPC, GET, HEAD, AVB, POST, SLOW, BOT, STOMP, CFB, APACHE, BYPASS, GSB, TOR, NULL, DGB, RHEX, OVH, PPS, CFBUAM, EVEN, COOKIE, KILLER`.
+- 
+### Running the Script
+
+To execute the script with the default settings, simply navigate to the directory where the script is located and run:
+
+```bash
+python attack.py
+```
+
+#### Example 1: Run Immediately with Custom Configuration
+
+To run the job immediately with custom configurations, use the `now` argument and specify other desired parameters:
+
+```bash
+python attack.py now --threads 4 --requests 200 --seconds 60 --url https://notreal.notreal --instances 2 --http_file http.txt --methods GET,POST
+```
+
+This command runs the script immediately with 4 threads, 200 requests, for 60 seconds, against `https://notreal.notreal`, in 2 instances, using the HTTP proxies from `http.txt`.
+
+To use the script without proxies default to http.txt, to use proxies choose another filename and it will be created.
+
+#### Example 2: Schedule Jobs
+
+scheduled job's require chnaging argument default within attack.py and changing the jobs_to_run variable which is curently 
+```bash
+    jobs_to_run = [
+        # Assuming the format is (methods, threads, requests, seconds, instances)
+        ("EVEN,GET", 70, 1, 60, 2),
+        ("EVEN,GET", 50, 100, 580, 2),
+        ("HEAD,HEAD", 50, 100, 600, 2),
+    ]
+```
+
+This current configuration runs 3 concurent attacks of 60 seconds, 580 and 600 each with 2 instances, between 70 and 50 threads and 1 - 100 request per thread
+
+### Monitoring Output
+
+The script logs its output to the console, including start times for jobs, CPU usage, memory usage, upload speed, and packets sent per second. Ensure the console or log viewer is open to monitor these metrics.
 
 ## Original Readme
 
