@@ -58,7 +58,7 @@ def print_stats(processes=None, execution_seconds=None):
             logging.debug(log_msg)
 
 
-def job_every_hour(url, methods, threads, requests, seconds, instances, http_file):
+def job_every_hour(url, methods, threads, requests, seconds, instances, http):
 
     
     logging.info(f"Running job at {datetime.datetime.now()}")
@@ -82,7 +82,7 @@ def job_every_hour(url, methods, threads, requests, seconds, instances, http_fil
             url,  # URL
             '1',  # Static value as per original structure
             str(threads),  # Number of threads
-            http_file,  # HTTP file path
+            http,  # HTTP file path
             str(requests),  # Number of requests
             str(seconds)  # Duration in seconds
         ]
@@ -95,8 +95,8 @@ def job_every_hour(url, methods, threads, requests, seconds, instances, http_fil
 def run_scheduled_jobs():
 
 
-    url = "https://notreal.noreal"  # dummy URL for all scheduled jobs
-    http_file = "http.txt"  # Default HTTP file for all scheduled jobs
+    url = "https://notreal.notreal"  # Default URL for all scheduled jobs
+    http = "http.txt"  # Default HTTP file for all scheduled jobs
     jobs_to_run = [
         # Assuming the format is (methods, threads, requests, seconds, instances)
         ("EVEN,GET", 70, 1, 60, 2),
@@ -107,10 +107,10 @@ def run_scheduled_jobs():
     for methods, threads, requests, seconds, instances in jobs_to_run:
         # Schedule each job to run once immediately for demonstration
         # Adjust the scheduling as needed
-        schedule.every().day.at("00:00").do(job_every_hour, url, methods, threads, requests, seconds, instances, http_file)
+        schedule.every().day.at("00:00").do(job_every_hour, url, methods, threads, requests, seconds, instances, http)
 
-def run_now(url, methods, threads, requests, seconds, instances, http_file):
-    job_every_hour(url, methods, threads, requests, seconds, instances, http_file)
+def run_now(url, methods, threads, requests, seconds, instances, http):
+    job_every_hour(url, methods, threads, requests, seconds, instances, http)
 
 # Argument parsing
 parser = argparse.ArgumentParser()
@@ -125,12 +125,12 @@ parser.add_argument("--methods", default="GET,GET", help="Comma-separated list o
 args = parser.parse_args()
 
 if args.time.lower() == 'now':
-    run_now(args.url, args.methods, args.threads, args.requests, args.seconds, args.instances, args.http_file)
+    run_now(args.url, args.methods, args.threads, args.requests, args.seconds, args.instances, args.http)
 else:
     # Adjust the scheduled jobs setup if needed
     for i in range(0, 24):
         schedule.every().day.at(f"{str(i).zfill(2)}:00:00").do(
-            run_now, args.url, args.methods, args.threads, args.requests, args.seconds, args.instances, args.http_file
+            run_now, args.url, args.methods, args.threads, args.requests, args.seconds, args.instances, args.http
         )
 
 while True:
